@@ -1,0 +1,49 @@
+TỔNG HỢP CÁC CHỨC NĂNG ĐÃ XÂY DỰNG
+Dự án: Đức Attendance - Ứng dụng chấm công
+
+1. TỔNG QUAN
+- Ứng dụng di động Flutter/Dart dành cho nhân viên và quản trị viên.
+- Backend REST API xây dựng bằng ASP.NET Core, EF Core và SQL Server.
+- Ứng dụng di động kết nối API qua HTTPS; có giao diện Swagger để xem và thử các endpoint.
+
+2. CHỨC NĂNG NHÂN VIÊN
+- Đăng ký tài khoản nhân viên bằng họ tên, tên đăng nhập, email và số điện thoại.
+- Xác minh email bằng OTP; tài khoản mới được đưa vào danh sách chờ quản trị viên duyệt.
+- Đăng nhập và xác minh OTP; hỗ trợ khôi phục và đặt lại mật khẩu qua luồng xác minh.
+- Ghi nhớ đăng nhập trên thiết bị và tiếp tục phiên đăng nhập đã ghi nhớ.
+- Xem hồ sơ cá nhân, ca làm việc được phân công và lịch sử chấm công theo khoảng ngày.
+- Chấm công vào ca và ra ca bằng QR, gửi tọa độ GPS và độ chính xác vị trí.
+- Gửi giải trình cho lần chấm công cần xác minh; xem trạng thái, sửa lý do hoặc hủy yêu cầu đang chờ xử lý.
+- Sử dụng tiện ích xem GPS hiện tại và thông tin chuyển động của thiết bị.
+
+3. CHỨC NĂNG QUẢN TRỊ VIÊN
+- Xem và duyệt tài khoản nhân viên đã xác minh email; có thể tạo hồ sơ nhân viên từ thông tin đăng ký hoặc liên kết hồ sơ có sẵn.
+- Từ chối tài khoản đang chờ duyệt.
+- Quản lý hồ sơ nhân viên, phòng ban, ca làm việc và địa điểm chấm công.
+- Cấu hình địa điểm bằng tọa độ, bán kính cho phép và ngưỡng độ chính xác GPS.
+- Phân công nhân viên vào ca và địa điểm theo ngày; hỗ trợ tạo phân công cho một khoảng ngày.
+- Tạo mã QR cho ca vào/ra, hiển thị để nhân viên quét và thu hồi phiên QR.
+- Xem lịch sử và các lần chấm công; lọc dữ liệu và xem thống kê theo khoảng ngày/phòng ban.
+- Xem, duyệt hoặc từ chối giải trình; xem dữ liệu GPS, quy tắc địa điểm lúc gửi và kết quả xử lý.
+- Xem nhật ký thao tác quản trị và các lần chấm công cần xác minh.
+
+4. CHỨC NĂNG BACKEND VÀ QUY TẮC NGHIỆP VỤ
+- Cung cấp REST API cho đăng nhập, tài khoản, nhân viên, phòng ban, ca, địa điểm, phân công, QR, chấm công, giải trình, thống kê và nhật ký hệ thống.
+- Xác thực bằng JWT và phân quyền theo vai trò; OTP có giới hạn thử lại, thời hạn và thời gian chờ gửi lại.
+- Áp dụng giờ máy chủ khi ghi nhận chấm công; kiểm tra GPS theo bán kính và ngưỡng độ chính xác của địa điểm.
+- Kiểm tra QR hợp lệ, đúng ca/hành động và thời hạn; hỗ trợ thu hồi phiên QR.
+- Chống ghi nhận trùng lặp bằng idempotency; không cho chấm công ra nếu chưa có chấm công vào hợp lệ.
+- Lưu bằng chứng và chính sách chấm công tại thời điểm gửi yêu cầu; lần chấm công cần xem xét chỉ được ghi nhận sau khi quản trị viên duyệt.
+- Ghi nhật ký các thao tác quan trọng; có phân trang dữ liệu, migration cơ sở dữ liệu và giới hạn tần suất request.
+- Có endpoint kiểm tra trạng thái API/cơ sở dữ liệu và trang web hiển thị QR cho quản trị viên.
+
+5. KIỂM THỬ VÀ TÌNH TRẠNG
+- README của dự án ghi nhận 25 bài kiểm thử backend và 9 bài kiểm thử Flutter đã đạt; Flutter analyze không có lỗi tại thời điểm ghi README.
+- README ghi nhận đã thử trên thiết bị thật các luồng Email OTP, GPS/cảm biến, QR chấm công vào/ra, giải trình, khôi phục mật khẩu và truy cập API từ mạng Wi-Fi khác.
+- Luồng duyệt đăng ký và tự động tạo/liên kết hồ sơ nhân viên có kiểm thử tự động; README ghi nhận luồng này đã được xác nhận trên API và Android.
+- API đã triển khai: https://hoangcongduc-001-site1.itempurl.com
+- Swagger API: https://hoangcongduc-001-site1.itempurl.com/swagger/index.html
+
+6. GIỚI HẠN CẦN LƯU Ý
+- Tích hợp Firebase SMS đã có một phần mã nguồn nhưng hiện chưa được cấu hình/bật; chưa xác nhận gửi SMS thật thành công. Không nên giới thiệu SMS OTP như một luồng đã sẵn sàng sử dụng.
+- Các kết quả kiểm thử nêu trên được trích theo README của dự án, không phải kết quả chạy lại trong lúc tạo tài liệu này.

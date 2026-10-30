@@ -1,0 +1,9 @@
+@Attendance.Api_HostAddress = http://localhost:5026
+
+### Kiem tra API tren may phat trien
+GET {{Attendance.Api_HostAddress}}/api/v1/health/live
+Accept: application/json
+
+### OpenAPI chi co trong moi truong Development
+GET {{Attendance.Api_HostAddress}}/swagger/v1/swagger.json
+Accept: application/json

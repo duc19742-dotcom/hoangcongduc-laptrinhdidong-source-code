@@ -1,0 +1,6 @@
+# Copy to key.properties and enter your OWN keystore values privately.
+# This example contains no signing secret and must not overwrite existing keys.
+storePassword=ENTER_YOUR_KEYSTORE_PASSWORD
+keyPassword=ENTER_YOUR_KEY_PASSWORD
+keyAlias=attendance
+storeFile=D:/duc_attendance/.local/attendance-release.jks
